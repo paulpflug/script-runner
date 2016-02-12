@@ -1,0 +1,47 @@
+{
+  "name": "script-runner",
+  "version": "0.0.0",
+  "description": "Invoke multiple commands, running in parallel / sequential, matching npm scripts",
+  "homepage": "https://github.com/paulpflug",
+  "author": {
+    "name": "Paul Pflugradt",
+    "email": "paul.pflugradt@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/paulpflug/script-runner"
+  },
+  "main": "lib/index.js",
+  "bin": {
+    "run": "./run.js",
+    "run-seq": "./run.js",
+    "run-para": "./run-para.js",
+    "run-npm": "./run-npm.js"
+  },
+  "keywords": [
+    "parallel",
+    "sequential",
+    "npm script",
+    "shell"
+  ],
+  "dependencies": {
+    "minimatch": "^3.0.0",
+    "better-spawn":"^0.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coffee-script": "^1.10.0",
+    "mocha": "^2.2.4"
+  },
+  "scripts": {
+    "build": "coffee --no-header --compile --output lib/ src/*.coffee",
+    "test": "mocha",
+    "test:2": "nothingHere2",
+    "test:3": "nothingHere3",
+    "watch": "mocha --watch",
+    "preversion": "npm test",
+    "version": "npm run build && git add .",
+    "postversion": "git push && git push --tags && npm publish"
+  }
+}
