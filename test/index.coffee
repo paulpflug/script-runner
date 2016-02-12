@@ -192,3 +192,6 @@ describe "parallelshell", ->
 
       it "should match subscripts", (done) ->
         testOutput "./run-npm.js --test test:*", ['[{"parallel":false,"units":[{"cmd":"nothingHere2"},{"cmd":"nothingHere3"}]}]'], done
+
+      it "should work with 2 scripts", (done) ->
+        testOutput "./run-npm.js --test test test2", ['[{"parallel":false,"units":[{"cmd":"mocha"},{"cmd":"nothing here 2"}]}]'], done

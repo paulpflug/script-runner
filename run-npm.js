@@ -22,10 +22,10 @@ if (pkg.scripts){
         var head = []
         if (i > 0) { head = args.slice(0,i) }
         var tail = []
-        if (args.length > i+1) { head = args.slice(i+1)}
+        if (args.length > i) { tail = args.slice(i+1)}
         args = head.concat(matched,tail)
         len = args.length
-        i += matched.length
+        i += matched.length-1
       }
     }
   }
