@@ -80,6 +80,6 @@ if (cmdGroup.units.length > 0) {cmdGroups.push(cmdGroup)}
 if (options.test) {
   console.log(JSON.stringify(cmdGroups))
 } else {
-  close = require('./lib/index.js')(cmdGroups,options,process.kill)
+  close = require('./lib/index.js')(cmdGroups,options,process.exit)
   process.on("SIGINT",close)
 }

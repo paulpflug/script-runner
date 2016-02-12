@@ -111,6 +111,11 @@ describe "parallelshell", ->
         close = api [{parallel:true,units: [{cmd:waitingProcess()},{cmd:waitingProcess(80),master:true}]}],options, (exitCode) ->
           exitCode.should.equal 0
           done()
+    describe "nesting", ->
+      it "should work", (done) ->
+        api [{parallel:false,units: [{cmd:"./run.js \""+waitingProcess(10)+"\""}]}],options, (exitCode) ->
+          exitCode.should.equal 0
+          done()
   describe "CLI", ->
     testOutput = (cmd, expectedOutput, done, std="out") ->
       child = spawn cmd, stdio:"pipe"
@@ -155,6 +160,9 @@ describe "parallelshell", ->
 
       it "should work with --ignore", (done) ->
         testOutput "./run.js --test --ignore cmd1 cmd2", ['[{"parallel":false,"units":[{"ignore":true,"cmd":"cmd1"},{"cmd":"cmd2"}]}]'], done
+
+      it "should work nested", (done) ->
+        testOutput "./run.js --test \"run cmd1\"", ['[{"parallel":false,"units":[{"cmd":"run cmd1"}]}]'], done
 
     describe "run-para", ->
       it "should work", (done) ->

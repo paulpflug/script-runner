@@ -29,7 +29,6 @@ module.exports = (cmdGroups,options,cb) ->
         cb(0)
     next()
 
-
   processParallelGroup = (cmdGroup,cb) ->
     called = false
     cbOnce = (exitCode) ->
