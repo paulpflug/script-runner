@@ -1,6 +1,6 @@
 {
   "name": "script-runner",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Invoke multiple commands, running in parallel / sequential, matching npm scripts",
   "homepage": "https://github.com/paulpflug",
   "author": {
