@@ -163,6 +163,9 @@ describe "parallelshell", ->
       it "should work with 1 cmd", (done) ->
         testOutput "./run-para.js --test cmd1", ['[{"parallel":true,"units":[{"cmd":"cmd1"}]}]'], done
 
+      it "should work with space in cmd", (done) ->
+        testOutput "./run-para.js --test \"cmd 1\"", ['[{"parallel":true,"units":[{"cmd":"cmd 1"}]}]'], done
+
     describe "run-npm", ->
       it "should work", (done) ->
         testOutput "./run-npm.js --test", ['[]'], done
@@ -170,8 +173,14 @@ describe "parallelshell", ->
       it "should work with 1 cmd", (done) ->
         testOutput "./run-npm.js --test cmd1", ['[{"parallel":false,"units":[{"cmd":"cmd1"}]}]'], done
 
+      it "should work with space in cmd", (done) ->
+        testOutput "./run-npm.js --test \"cmd 1\"", ['[{"parallel":false,"units":[{"cmd":"cmd 1"}]}]'], done
+
       it "should match scripts", (done) ->
         testOutput "./run-npm.js --test test", ['[{"parallel":false,"units":[{"cmd":"mocha"}]}]'], done
+
+      it "should work with space in scripts", (done) ->
+        testOutput "./run-npm.js --test test2", ['[{"parallel":false,"units":[{"cmd":"nothing here 2"}]}]'], done
 
       it "should match subscripts", (done) ->
         testOutput "./run-npm.js --test test:*", ['[{"parallel":false,"units":[{"cmd":"nothingHere2"},{"cmd":"nothingHere3"}]}]'], done

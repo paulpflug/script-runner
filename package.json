@@ -37,6 +37,7 @@
   "scripts": {
     "build": "coffee --no-header --compile --output lib/ src/*.coffee",
     "test": "mocha",
+    "test2": "nothing here 2",
     "test:2": "nothingHere2",
     "test:3": "nothingHere3",
     "watch": "mocha --watch",
