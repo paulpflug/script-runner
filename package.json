@@ -1,6 +1,6 @@
 {
   "name": "script-runner",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Invoke multiple commands, running in parallel / sequential, matching npm scripts",
   "homepage": "https://github.com/paulpflug",
   "author": {
@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "minimatch": "^3.0.0",
-    "better-spawn":"^0.2.1"
+    "better-spawn": "^0.2.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
