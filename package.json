@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "minimatch": "^3.0.0",
-    "better-spawn": "^0.2.1"
+    "better-spawn": "^0.2.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",

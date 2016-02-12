@@ -34,6 +34,6 @@ if (pkg.scripts){
 if (args.length) {
   var cmd = __dirname+"/run.js \""+args.join("\" \"")+"\""
   var betterSpawn = require("better-spawn")
-  var child = betterSpawn(cmd,{stdio:"inherit"})
+  var child = betterSpawn(cmd,{stdio:"inherit",cwd:process.cwd()})
   process.on("SIGINT", child.close)
 }
