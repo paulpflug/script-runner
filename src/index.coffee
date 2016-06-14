@@ -19,7 +19,8 @@ module.exports = (cmdGroups,options,cb) ->
       if cmdGroup.units[i]?
         unit = spawn cmdGroup.units[i]
         i += 1
-        cmdGroup.close = unit.child.close
+        cmdGroup.close = (exitCode, signal="SIGTERM") ->
+          unit.child.close(signal)
         unit.child.on "close", ->
           if isGracefully(unit) or unit.ignore
             next()
@@ -35,9 +36,9 @@ module.exports = (cmdGroups,options,cb) ->
       cb(exitCode) unless called
       called = true
     units = []
-    closeAll = (exitCode) ->
+    closeAll = (exitCode,signal="SIGTERM") ->
       for unit in units
-        unit.child.close()
+        unit.child.close(signal)
       cbOnce(exitCode)
     cmdGroup.close = closeAll
     allClosed = ->
@@ -89,4 +90,5 @@ module.exports = (cmdGroups,options,cb) ->
     else
       return cb(0)
   next(0)
-  return -> cmdGroup.close?(1)
+  return (signal) ->
+    cmdGroup.close?(1, signal)

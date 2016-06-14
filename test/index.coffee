@@ -133,6 +133,7 @@ describe "parallelshell", ->
         for line,i in expectedOutput
           line.should.equal output[i]
         done()
+      return child
     describe "run", ->
       it "should work", (done) ->
         testOutput "./run.js --test", ['[]'], done
@@ -195,3 +196,26 @@ describe "parallelshell", ->
 
       it "should work with 2 scripts", (done) ->
         testOutput "./run-npm.js --test test test2", ['[{"parallel":false,"units":[{"cmd":"mocha"},{"cmd":"nothing here 2"}]}]'], done
+
+    describe "real run", ->
+      child = null
+      it "should work", (done) ->
+        testOutput "./run.js 'echo 'test''", ["test"], done
+      it "should be closeable by SIGTERM", (done) ->
+        child = testOutput "./run.js 'sleep 5'", [], done
+        child.close("SIGTERM")
+      it "should be closeable by SIGHUP", (done) ->
+        child = testOutput "./run.js 'sleep 5'", [], done
+        child.close("SIGHUP")
+      it "should be closeable by SIGINT", (done) ->
+        child = testOutput "./run.js 'sleep 5'", [], done
+        child.close("SIGINT")
+      it "should be closeable running parallel", (done) ->
+        child = testOutput "./run.js -p 'sleep 5' 'sleep 5'", [], done
+        child.close()
+      it "should be closeable using run-npm", (done) ->
+        child = testOutput "./run-npm.js 'sleep 5'", [], done
+        child.close()
+      it "should be closeable using run-para", (done) ->
+        child = testOutput "./run-para.js 'sleep 5' 'sleep 5'", [], done
+        child.close()

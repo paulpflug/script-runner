@@ -35,5 +35,7 @@ if (args.length) {
   var cmd = __dirname+"/run.js \""+args.join("\" \"")+"\""
   var betterSpawn = require("better-spawn")
   var child = betterSpawn(cmd,{stdio:"inherit",cwd:process.cwd()})
-  process.on("SIGINT", child.close)
+  process.on("SIGINT", function(){child.close("SIGINT")})
+  process.on("SIGTERM", function(){child.close("SIGTERM")})
+  process.on("SIGHUP", function(){child.close("SIGHUP")})
 }

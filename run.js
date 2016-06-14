@@ -81,5 +81,7 @@ if (options.test) {
   console.log(JSON.stringify(cmdGroups))
 } else {
   close = require('./lib/index.js')(cmdGroups,options,process.exit)
-  process.on("SIGINT",close)
+  process.on("SIGTERM", function(){close("SIGTERM")})
+  process.on("SIGINT", function(){close("SIGINT")})
+  process.on("SIGHUP", function(){close("SIGHUP")})
 }
