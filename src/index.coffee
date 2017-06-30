@@ -2,10 +2,15 @@
 
 betterSpawn = require "better-spawn"
 module.exports = (cmdGroups,options,cb) ->
+  options.Promise ?= Promise
+  if options.Promise
+    _cb = cb
+    finished = new Promise (resolve) =>
+      cb = (exitCode) =>
+        resolve(exitCode)
+        _cb?(exitCode)
   spawn = (unit) ->
-    stdio = "inherit"
-    stdio = "pipe" if options.silent
-    unit.child = betterSpawn(unit.cmd,stdio:stdio)
+    unit.child = betterSpawn(unit.cmd, noOut: options.silent, noErr: options.noErr)
     if unit.timeout
       setTimeout unit.child.close, unit.timeout
     return unit
@@ -45,9 +50,9 @@ module.exports = (cmdGroups,options,cb) ->
       closed = 0
       exitCode = 0
       for unit in units
-        closed += 1 if unit.child.closed
+        closed += 1 if unit.child.isClosed
         if unit.master
-          if unit.child.closed
+          if unit.child.isClosed
             return cbOnce(not isGracefully(unit))
           else
             return
@@ -75,6 +80,7 @@ module.exports = (cmdGroups,options,cb) ->
 
   i = 0
   cmdGroup = null
+
   next = (exitCode) ->
     return cb(1) if exitCode
     if cmdGroups[i]?
@@ -90,5 +96,10 @@ module.exports = (cmdGroups,options,cb) ->
     else
       return cb(0)
   next(0)
-  return (signal) ->
+  close = (signal) ->
     cmdGroup.close?(1, signal)
+    return finished
+  if finished
+    close.then = finished.then.bind(finished)
+    close.catch = finished.catch.bind(finished)
+  return close

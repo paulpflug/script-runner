@@ -19,6 +19,10 @@
     "run-para": "./run-para.js",
     "run-npm": "./run-npm.js"
   },
+  "files": [
+    "*.js",
+    "lib/*.js"
+  ],
   "keywords": [
     "parallel",
     "sequential",
@@ -26,14 +30,14 @@
     "shell"
   ],
   "dependencies": {
-    "minimatch": "^3.0.0",
-    "better-spawn": "^0.3.1"
+    "better-spawn": "^1.0.1",
+    "minimatch": "^3.0.4"
   },
   "devDependencies": {
     "atom-ui-reporter": "0.0.1",
-    "chai": "^3.5.0",
-    "coffee-script": "^1.10.0",
-    "mocha": "^2.2.4"
+    "coffeescript": "^2.0.0-beta2",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
   },
   "scripts": {
     "build": "coffee --no-header --compile --output lib/ src/*.coffee",
