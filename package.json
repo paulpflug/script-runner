@@ -30,22 +30,22 @@
     "shell"
   ],
   "dependencies": {
-    "better-spawn": "^1.0.1",
-    "minimatch": "^3.0.4"
+    "better-spawn": "^1.0.4",
+    "minimatch": "^3.0.4",
+    "yaku": "^0.18.6"
   },
   "devDependencies": {
-    "atom-ui-reporter": "0.0.1",
-    "coffeescript": "^2.0.0-beta2",
-    "chai": "^4.0.2",
-    "mocha": "^3.4.2"
+    "coffeescript": "^2.3.1",
+    "snapy": "^0.1.6",
+    "coffee-loader": "^0.9.0"
   },
   "scripts": {
     "build": "coffee --no-header --compile --output lib/ src/*.coffee",
-    "test": "mocha",
+    "test": "snapy",
     "test2": "nothing here 2",
     "test:2": "nothingHere2",
     "test:3": "nothingHere3",
-    "watch": "mocha --watch",
+    "watch": "snapy --watch",
     "preversion": "npm test",
     "version": "npm run build && git add .",
     "postversion": "git push && git push --tags && npm publish"

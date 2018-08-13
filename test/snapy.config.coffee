@@ -1,0 +1,2 @@
+module.exports = 
+  directOutput: false

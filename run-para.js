@@ -1,7 +1,14 @@
 #!/usr/bin/env node
-var betterSpawn = require("better-spawn")
-var cmd = "\""+__dirname+"/run.js\" --parallel \""+process.argv.slice(2).join("\" \"")+"\""
-var child = betterSpawn(cmd,{stdio:"inherit",cwd:process.cwd()})
-process.on("SIGINT", function(){child.close("SIGINT")})
-process.on("SIGTERM", function(){child.close("SIGTERM")})
-process.on("SIGHUP", function(){child.close("SIGHUP")})
+
+var args = process.argv.slice(2)
+args.unshift("-p")
+try {
+  require("coffeescript/register")
+  require("./src/cli.coffee")(args)
+} catch (e) {
+  if (e.code == "MODULE_NOT_FOUND") {
+    require("./lib/cli.js")(args)
+  } else {
+    console.log(e)
+  }
+}
